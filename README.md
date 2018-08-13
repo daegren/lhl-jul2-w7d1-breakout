@@ -1,5 +1,7 @@
 # ROBOT FIGHT
 
+![Class Diagram](./img/class_diagram.png)
+
 ## Requirements
 
 ### Robots
