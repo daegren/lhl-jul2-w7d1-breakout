@@ -19,7 +19,8 @@ class TurnManager
   end
 
   def get_defender(attacker)
-    @players.select {|p| p != attacker }.sample
+    targets = @players.select {|p| p != attacker }
+    attacker.choose_target(targets)
   end
 end
 

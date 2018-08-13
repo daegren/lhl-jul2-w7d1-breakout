@@ -1,16 +1,18 @@
 require './robot.rb'
 require './turn_manager.rb'
+require './actor.rb'
 
 class Game
   def initialize
-    @robot1 = Robot.new('Bender')
+    @robot1 = Robot.new('Bender', 10, PlayerActor.new)
     @robot2 = Robot.new('Lt Cmd Data')
     @robot3 = Robot.new('Calculon')
+    @robot4 = Robot.new('CRUSHINATOR', 10, StrongAIActor.new)
     @turn_manager = TurnManager.new(self.robots)
   end
 
   def robots
-    [@robot1, @robot2, @robot3]
+    [@robot1, @robot2, @robot3, @robot4]
   end
 
   def summary

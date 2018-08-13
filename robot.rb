@@ -1,11 +1,12 @@
 class Robot
-  attr_reader :name, :health
+  attr_reader :name, :health, :actor
   MAX_HEALTH = 50
 
-  def initialize(name, power = 10)
+  def initialize(name, power = 10, actor = Actor.new)
     @name = name
     @health = MAX_HEALTH
     @power = power
+    @actor = actor
   end
 
   def dead?
@@ -14,6 +15,10 @@ class Robot
 
   def berserk?
     @health <= MAX_HEALTH * 0.2
+  end
+
+  def choose_target(targets)
+    actor.choose_target(targets)
   end
 
   def attack(other_robot)
