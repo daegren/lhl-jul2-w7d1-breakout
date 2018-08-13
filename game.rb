@@ -1,22 +1,16 @@
 require './robot.rb'
+require './turn_manager.rb'
 
 class Game
   def initialize
     @robot1 = Robot.new('Bender')
     @robot2 = Robot.new('Lt Cmd Data')
-    @current_robot = @robot1
+    @robot3 = Robot.new('Calculon')
+    @turn_manager = TurnManager.new(self.robots)
   end
 
   def robots
-    [@robot1, @robot2]
-  end
-
-  def get_target(current_robot)
-    if current_robot == @robot1
-      @robot2
-    else
-      @robot1
-    end
+    [@robot1, @robot2, @robot3]
   end
 
   def summary
@@ -38,22 +32,16 @@ class Game
 
   def run
     while !game_over?
+      turn = @turn_manager.next_turn
+
       puts
-      puts "#{@current_robot.name}'s Turn!"
+      puts "#{turn.attacker.name}'s Turn!"
       puts
+      puts "👊  #{turn.attacker.name} is attacking #{turn.defender.name}!"
 
-      target = get_target(@current_robot)
-
-      puts "👊  #{@current_robot.name} is attacking #{target.name}!"
-
-      @current_robot.attack(target)
+      turn.attacker.attack(turn.defender)
 
       puts summary
-      if @current_robot == @robot1
-        @current_robot = @robot2
-      else
-        @current_robot = @robot1
-      end
 
       sleep 0.5
     end
